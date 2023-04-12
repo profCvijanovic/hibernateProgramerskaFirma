@@ -7,6 +7,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class UserDetails {
 	private Adresa adresa;
 	@Enumerated
 	private Rola rola;
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Contact> kontakti = new ArrayList<Contact>();
 	
 	public int getId() {
