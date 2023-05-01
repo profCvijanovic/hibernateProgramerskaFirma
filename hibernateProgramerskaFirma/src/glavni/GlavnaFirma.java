@@ -46,38 +46,42 @@ public class GlavnaFirma {
 		 * crudDao.upisiUserZaposleni(user, userDetails, zaposleni);
 		 */
 		
-		Zaposleni zaposleni = crudDao.vratiZaposlenogPoId("2");
 		
-		if(zaposleni != null) {
-			System.out.println("Zaposleni je: " + zaposleni.getSifraZaposlenog());
-			System.out.println("Username: " +  zaposleni.getUser().getUserName());
-			System.out.println("Prezime: " + zaposleni.getUserDetails().getPrezime());
-			System.out.println("Grad: " + zaposleni.getUserDetails().getAdresa().getGrad());
-			
-			for(Contact kontakt: zaposleni.getUserDetails().getKontakti()) {
-				System.out.println("Email: " + kontakt.getEmail());
-			}
-			
-			if(zaposleni.getTim() != null) {
-				System.out.println("Tim: " + zaposleni.getTim().getNaziv());
-			}else {
-				System.out.println("Tim nije dodeljen!");
-			}
-			
-			if(!zaposleni.getPozicije().isEmpty()) {
-				for(Pozicija pozicija: zaposleni.getPozicije()) {
-					System.out.println("Pozicija: " + pozicija.getNaziv());
-				}	
-			}else {
-				System.out.println("Zaposleni nema dodeljenu poziciju...");
-			}
-			
-				
-		}else {
-			System.out.println("Neispravan unos id zaposleni!");
-		}
+		//crudDao.promeniPlatuZaposlenom("3000", "3");
+		//crudDao.dodeliPozicijuZaposlenom("2", "3");
+		//crudDao.obrisiTim("3");
+		/*
+		 * Zaposleni zaposleni = crudDao.vratiZaposlenogPoId("3");
+		 * 
+		 * if(zaposleni != null) { System.out.println("Zaposleni je: " +
+		 * zaposleni.getSifraZaposlenog()); System.out.println("Username: " +
+		 * zaposleni.getUser().getUserName()); System.out.println("Plata: " +
+		 * zaposleni.getPlata()); System.out.println("Prezime: " +
+		 * zaposleni.getUserDetails().getPrezime()); System.out.println("Grad: " +
+		 * zaposleni.getUserDetails().getAdresa().getGrad());
+		 * 
+		 * for(Contact kontakt: zaposleni.getUserDetails().getKontakti()) {
+		 * System.out.println("Email: " + kontakt.getEmail()); }
+		 * 
+		 * if(zaposleni.getTim() != null) { System.out.println("Tim: " +
+		 * zaposleni.getTim().getNaziv()); }else {
+		 * System.out.println("Tim nije dodeljen!"); }
+		 * 
+		 * if(!zaposleni.getPozicije().isEmpty()) { for(Pozicija pozicija:
+		 * zaposleni.getPozicije()) { System.out.println("Pozicija: " +
+		 * pozicija.getNaziv()); } }else {
+		 * System.out.println("Zaposleni nema dodeljenu poziciju..."); }
+		 * 
+		 * 
+		 * }else { System.out.println("Neispravan unos id zaposleni!"); }
+		 */
 		
+		
+		String sifraZaposlenog = crudDao.vratiSifruZaposlenog("1");
+			System.out.println("Sifra je: " + sifraZaposlenog);
 			
+		String userName = crudDao.vratiUserNameZaUsera("1");
+			System.out.println("Username: " + userName);
 
 	}
 
