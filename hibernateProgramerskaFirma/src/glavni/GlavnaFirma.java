@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.CrudDao;
+import dto.UserZaposleniDto;
 import model.Adresa;
 import model.Contact;
 import model.Pozicija;
@@ -77,11 +78,34 @@ public class GlavnaFirma {
 		 */
 		
 		
-		String sifraZaposlenog = crudDao.vratiSifruZaposlenog("1");
+		/*String sifraZaposlenog = crudDao.vratiSifruZaposlenog("1");
 			System.out.println("Sifra je: " + sifraZaposlenog);
 			
 		String userName = crudDao.vratiUserNameZaUsera("1");
-			System.out.println("Username: " + userName);
+			System.out.println("Username: " + userName);*/
+		
+		List<User> useriIzBaze = crudDao.vratiSveUsere();
+		
+		for(User u: useriIzBaze) {
+			System.out.println("id: " + u.getId());
+			System.out.println("user name: " + u.getUserName());
+			System.out.println("pass: " + u.getPassword());
+			System.out.println("***********" );
+		}
+		
+		
+		List<UserZaposleniDto> podaci = crudDao.vratiNekePodatkeOzaposlenom();
+		
+		for(UserZaposleniDto d: podaci) {
+			System.out.println("plata: " + d.getPlata());
+			System.out.println("sifra: " + d.getSifraZaposlenog());
+			System.out.println("tim: " + d.getNaziv());
+			System.out.println("user name: " + d.getUserName());
+			System.out.println("prezime: " + d.getPlata());
+			System.out.println("ime: " + d.getIme());
+			System.out.println("****************" );
+			
+		}
 
 	}
 

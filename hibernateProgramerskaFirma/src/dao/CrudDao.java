@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.hibernate.Hibernate;
@@ -7,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import dto.UserZaposleniDto;
 import model.Pozicija;
 import model.Tim;
 import model.User;
@@ -181,6 +185,75 @@ public class CrudDao {
 				sesija.close();
 			}
 	}
+	
+	public List<User> vratiSveUsere() {
+		
+		List<User> sviUseri = new ArrayList<User>();
+		
+		Session sesija = factory.openSession();
+			sesija.beginTransaction();	
+			try {
+				//Hibernate Query Language (HQL)
+				String hql = "FROM User";
+				Query query = sesija.createQuery(hql);	
+				sviUseri = query.getResultList();
+	
+				sesija.getTransaction().commit();
+				return sviUseri;
+			}catch (Exception e) {
+				sesija.getTransaction().rollback();
+				return null;
+			}finally {
+				sesija.close();
+			}
+	}
+	
+	public List <UserZaposleniDto> vratiNekePodatkeOzaposlenom() {
+		
+		List<UserZaposleniDto> sviPodaci = new ArrayList<UserZaposleniDto>();
+		
+		Session sesija = factory.openSession();
+			sesija.beginTransaction();	
+			try {
+				//SQL
+				String sql = "SELECT \n"
+						+ "z.plata,\n"
+						+ "z.sifraZaposlenog,\n"
+						+ "t.naziv,\n"
+						+ "u.userName,\n"
+						+ "ud.prezime,\n"
+						+ "ud.ime\n"
+						+ "FROM zaposleni z\n"
+						+ "INNER JOIN tim t on z.tim_id = t.id\n"
+						+ "INNER JOIN user u on z.user_id = u.id\n"
+						+ "INNER JOIN userdetails ud on z.userDetails_id = ud.id";
+				Query query = sesija.createNativeQuery(sql);	
+				List<Object[]> sviRedovi = query.getResultList();
+				
+				for(Object[] o : sviRedovi) {
+					
+					UserZaposleniDto dto = new UserZaposleniDto();
+					
+					dto.setPlata((double)o[0]);
+					dto.setSifraZaposlenog((String)o[1]);
+					dto.setNaziv((String)o[2]);
+					dto.setUserName((String)o[3]);
+					dto.setPrezime((String)o[4]);
+					dto.setIme((String)o[5]);
+					
+					sviPodaci.add(dto);
+				}
+				
+				sesija.getTransaction().commit();
+				return sviPodaci;
+			}catch (Exception e) {
+				sesija.getTransaction().rollback();
+				return null;
+			}finally {
+				sesija.close();
+			}
+	}
+	
 	
 	
 
